@@ -1,7 +1,7 @@
 // Globals
 const scriptProperties = PropertiesService.getScriptProperties();
 
-function main() {
+try {
   // Initialize the data
   getGTasks();
   getTodosFromHabitica();
@@ -54,6 +54,7 @@ function main() {
     }
 
   }
-
+} catch (error) {
+  console.error("An unexpected error occurred:", error);
 }
 

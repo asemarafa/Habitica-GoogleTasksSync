@@ -1,33 +1,15 @@
-function getGTasksId(){
-  var completedList = [];
-  var notCompletedList = [];
+function getGTasksId() {
+    const getTaskIds = (tasks) => tasks.map(task => task.taskId);
 
-  for (let i of gtasksListCompleted){
-    completedList.push(i.taskId);
-  }
-
-  for (let i of gtasksListNotCompleted){
-    notCompletedList.push(i.taskId);
-  }
-
-  return [completedList, notCompletedList];
+    return [getTaskIds(gtasksListCompleted), getTaskIds(gtasksListNotCompleted)];
 }
 
-function getGTaskFromId(taskId){
-  for (let t of gtasksListNotCompleted){
-    if (t.taskId === taskId){
-      return t;
-    }
-  }
+function getGTaskFromId(taskId) {
+    const findTaskById = (tasks, id) => tasks.find(task => task.taskId === id);
 
-  for (let t of gtasksListCompleted){
-    if (t.taskId === taskId){
-      return t;
-    }
-  }
-
-  return "";
+    return findTaskById(gtasksListNotCompleted, taskId) || findTaskById(gtasksListCompleted, taskId) || "";
 }
+
 
 
 function gtasks_testing(){

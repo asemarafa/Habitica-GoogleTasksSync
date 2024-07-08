@@ -52,12 +52,21 @@ function buildRequest(method, url, payload){
    }
   }
 
-    var response = UrlFetchApp.fetch(PropertiesService.getScriptProperties().getProperty("habitica_apiurl") + url, params);
+    try {
+      var response = UrlFetchApp.fetch(PropertiesService.getScriptProperties().getProperty("habitica_apiurl") + url, params);
+    } catch (error) {
+      Logger.log("Error in API request: %s", error);
+      throw new Error("Failed to fetch data from Habitica API");
+    }
     return response
 }
 
 function getTags(){
   let taglistResponse = buildRequest('get', 'tags');  
+  if (!taglistResponse) {
+    Logger.log('Failed to fetch tags from Habitica.');
+    return [];
+  }
   var data = JSON.parse(taglistResponse.getContentText());
 
   var tagList = [];
@@ -85,7 +94,7 @@ function getTodosFromHabitica(){
         if (i.tags.length){
           var tags = [];
           for(let t of i.tags){
-            tags.push(new HabiticaTag(getTagNameFromId(t), t));
+            tags.push(new HabiticaTag(getTagInfo(habiticaTags, t, 'id'), t));
           }
           todo.addTags(tags);
         }

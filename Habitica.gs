@@ -1,21 +1,12 @@
-function getTagNameFromId(tagId){
-  for (let t of habiticaTags){
-    if (t.tagId === tagId){
-      return t.tagName;
+function getTagInfo(tags, searchValue, searchBy = 'id') {
+    for (let t of tags) {
+        if (searchBy === 'id' && t.tagId === searchValue) {
+            return t.tagName;
+        } else if (searchBy === 'name' && t.tagName === searchValue) {
+            return t.tagId;
+        }
     }
-  }
-
-  return "";
-}
-
-function getTagIdFromName(tagName){
-  for (let t of habiticaTags){
-    if (t.tagName === tagName){
-      return t.tagName;
-    }
-  }
-
-  return "";
+    return "";
 }
 
 function getHabiticaTodoAliases(){
