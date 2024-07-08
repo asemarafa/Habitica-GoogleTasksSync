@@ -1,18 +1,18 @@
 function getTagInfo(tags, searchValue, searchBy = 'id') {
-    for (let t of tags) {
-        if (searchBy === 'id' && t.tagId === searchValue) {
-            return t.tagName;
-        } else if (searchBy === 'name' && t.tagName === searchValue) {
-            return t.tagId;
-        }
+  for (let t of tags) {
+    if (searchBy === 'id' && t.tagId === searchValue) {
+      return t.tagName;
+    } else if (searchBy === 'name' && t.tagName === searchValue) {
+      return t.tagId;
     }
-    return "";
+  }
+  return "";
 }
 
-function getHabiticaTodoAliases(){
+function getHabiticaTodoAliases() {
   var aliasList = [];
-  for (let t of habiticaTodos){
-    if (t.alias === undefined){
+  for (let t of habiticaTodos) {
+    if (t.alias === undefined) {
       // pass
     } else {
       aliasList.push(t.alias);
@@ -22,9 +22,9 @@ function getHabiticaTodoAliases(){
   return aliasList;
 }
 
-function getHabiticaTodoFromAlias(alias){
-  for (let t of habiticaTodos){
-    if (t.alias === alias){
+function getHabiticaTodoFromAlias(alias) {
+  for (let t of habiticaTodos) {
+    if (t.alias === alias) {
       return t;
     }
   }
@@ -32,16 +32,16 @@ function getHabiticaTodoFromAlias(alias){
   return "";
 }
 
-function addGTaskToHabitica(gtaskId){
+function addGTaskToHabitica(gtaskId) {
   var gtask = getGTaskFromId(gtaskId);
   buildRequest("post", "tasks/user", gtask.convertToHabiticaPayload());
 }
 
-function markGTaskAsDone(gtaskId){
+function markGTaskAsDone(gtaskId) {
   var habiticaTodo = getHabiticaTodoFromAlias(gtaskId);
-  buildRequest("post", "tasks/" + habiticaTodo.id + "/score/up", {"up": "True"});
+  buildRequest("post", "tasks/" + habiticaTodo.id + "/score/up", { "up": "True" });
 }
 
-function updateGTaskDueDate(gtask){
+function updateGTaskDueDate(gtask) {
 
 }
