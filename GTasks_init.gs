@@ -21,28 +21,10 @@ class GoogleTask {
   convertToHabiticaPayload() {
     var payload = {
       "type": "todo",
-      "text": this.text,
+      "text": (this.taskListName !== "Default List") ? this.taskListName + ": " + this.text : this.text,
       "alias": this.taskId,
       "notes": this.notes,
     }
-
-    if (this.taskListName !== "Default List") {
-      payload.text = this.taskListName + ": " + payload.text;
-    }
-
-    if (this.parentId === undefined) {
-      // placeholder 
-      // TODO: implement subtasks as checklists
-    }
-
-    if (this.dueDate === undefined) {
-      // pass
-    } else {
-      payload["date"] = this.dueDate;
-    }
-
-    return payload;
-  }
 
     if (this.parentId === undefined) {
       // placeholder 
